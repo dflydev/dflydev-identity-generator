@@ -13,23 +13,18 @@ namespace Dflydev\IdentityGenerator\Generator;
 
 use Dflydev\Base32\Crockford\Crockford;
 
-class Base32CrockfordGenerator implements GeneratorInterface
+class Base32CrockfordGenerator extends AbstractSeededGenerator
 {
-    protected $minValue;
-    protected $maxValue;
     protected $withChecksum = false;
-    protected $lastNumericValue;
 
     /**
      * Constructor
      * 
-     * @param int $minValue
-     * @param int|null $maxValue Defaults to mt_getrandmax()
+     * @param GeneratorInterface|null $seedGenerator
      */
-    public function __construct($minValue = 0, $maxValue = null)
+    public function __construct(GeneratorInterface $seedGenerator = null)
     {
-        $this->minValue = $minValue;
-        $this->maxValue = null === $maxValue ? mt_getrandmax() : $maxValue;
+        $this->setSeedGenerator($seedGenerator);
     }
 
     /**
@@ -37,11 +32,9 @@ class Base32CrockfordGenerator implements GeneratorInterface
      */
     public function generateIdentity()
     {
-        $this->lastNumericValue = mt_rand($this->minValue, $this->maxValue);
-
         return $this->withChecksum
-            ? Crockford::encodeWithChecksum($this->lastNumericValue)
-            : Crockford::encode($this->lastNumericValue)
+            ? Crockford::encodeWithChecksum($this->generateSeed())
+            : Crockford::encode($this->generateSeed())
         ;
     }
 
@@ -49,22 +42,12 @@ class Base32CrockfordGenerator implements GeneratorInterface
      * Generate strings with checksum?
      * 
      * @param bool $withChecksum
+     * @return Base32CrockfordGenerator
      */
     public function setWithChecksum($withChecksum)
     {
         $this->withChecksum = $withChecksum;
-    }
 
-    /**
-     * Last numeric value created by generator
-     * 
-     * There are few reasons (outside of testing) that might require this
-     * value to be exposed. Probably best to forget that it exists.
-     * 
-     * @return int|null
-     */
-    public function getLastNumericValue()
-    {
-        return $this->lastNumericValue;
+        return $this;
     }
 }

@@ -11,8 +11,9 @@
 
 namespace Dflydev\Tests\IdentityGenerator\Generator;
 
-use Dflydev\IdentityGenerator\Generator\Base32CrockfordGenerator;
 use Dflydev\Base32\Crockford\Crockford;
+use Dflydev\IdentityGenerator\Generator\Base32CrockfordGenerator;
+use Dflydev\IdentityGenerator\Generator\RandomNumberGenerator;
 
 class IdentityGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -31,7 +32,7 @@ class IdentityGeneratorTest extends \PHPUnit_Framework_TestCase
             $identity = $generator->generateIdentity();
 
             $this->assertEquals(Crockford::normalize($identity), $identity);
-            $this->assertEquals(Crockford::decode($identity), $generator->getLastNumericValue());
+            $this->assertEquals(Crockford::decode($identity), $generator->getLastSeedValue());
         }
     }
 
@@ -44,7 +45,7 @@ class IdentityGeneratorTest extends \PHPUnit_Framework_TestCase
             $identity = $generator->generateIdentity();
 
             $this->assertEquals(Crockford::normalize($identity), $identity);
-            $this->assertEquals(Crockford::decodeWithChecksum($identity), $generator->getLastNumericValue());
+            $this->assertEquals(Crockford::decodeWithChecksum($identity), $generator->getLastSeedValue());
         }
     }
 
@@ -53,18 +54,19 @@ class IdentityGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testKnownValues($decodedValue, $encodedValue, $encodedValueWithChecksum)
     {
-        $generator = new Base32CrockfordGenerator($decodedValue, $decodedValue);
+        $randomNumberGenerator = new RandomNumberGenerator($decodedValue, $decodedValue);
+        $generator = new Base32CrockfordGenerator($randomNumberGenerator);
 
         $identity = $generator->generateIdentity();
 
-        $this->assertEquals($decodedValue, $generator->getLastNumericValue());
+        $this->assertEquals($decodedValue, $generator->getLastSeedValue());
         $this->assertEquals($encodedValue, $identity);
 
         $generator->setWithChecksum(true);
 
         $identity = $generator->generateIdentity();
 
-        $this->assertEquals($decodedValue, $generator->getLastNumericValue());
+        $this->assertEquals($decodedValue, $generator->getLastSeedValue());
         $this->assertEquals($encodedValueWithChecksum, $identity);
     }
 

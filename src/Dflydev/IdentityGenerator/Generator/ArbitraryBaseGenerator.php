@@ -11,7 +11,7 @@
 
 namespace Dflydev\IdentityGenerator\Generator;
 
-class ArbitraryBaseGenerator implements GeneratorInterface
+class ArbitraryBaseGenerator extends AbstractSeededGenerator
 {
     public static $BASE32_CROCKFORD = array(
         '0', '1', '2', '3', '4',
@@ -20,10 +20,6 @@ class ArbitraryBaseGenerator implements GeneratorInterface
         'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S',
         'T', 'V', 'W', 'X', 'Y', 'Z',
     );
-
-    protected $minValue;
-    protected $maxValue;
-    protected $lastNumericValue;
 
     /**
      * Encode number using only values from symbols
@@ -40,7 +36,7 @@ class ArbitraryBaseGenerator implements GeneratorInterface
         }
 
         if (!$number) {
-            return 0;
+            return $symbols[0];
         }
 
         $base = count($symbols);
@@ -59,14 +55,12 @@ class ArbitraryBaseGenerator implements GeneratorInterface
     /**
      * Constructor
      * 
-     * @param int $minValue
-     * @param int|null $maxValue Defaults to mt_getrandmax()
+     * @param GeneratorInterface|null $seedGenerator
      */
-    public function __construct($minValue = 0, $maxValue = null)
+    public function __construct(GeneratorInterface $seedGenerator = null)
     {
+        $this->setSeedGenerator($seedGenerator);
         $this->allowedChars = static::$BASE32_CROCKFORD;
-        $this->minValue = $minValue;
-        $this->maxValue = null === $maxValue ? mt_getrandmax() : $maxValue;
     }
 
     /**
@@ -74,22 +68,7 @@ class ArbitraryBaseGenerator implements GeneratorInterface
      */
     public function generateIdentity()
     {
-        $this->lastNumericValue = mt_rand($this->minValue, $this->maxValue);
-
-        return static::encode($this->allowedChars, $this->lastNumericValue);
-    }
-
-    /**
-     * Last numeric value created by generator
-     * 
-     * There are few reasons (outside of testing) that might require this
-     * value to be exposed. Probably best to forget that it exists.
-     * 
-     * @return int|null
-     */
-    public function getLastNumericValue()
-    {
-        return $this->lastNumericValue;
+        return static::encode($this->allowedChars, $this->generateSeed());
     }
 
     /**
@@ -100,7 +79,7 @@ class ArbitraryBaseGenerator implements GeneratorInterface
      */
     public function setAllowedChars(array $allowedChars)
     {
-        $this->allowedChars = array();
+        $this->allowedChars = $allowedChars;
 
         return $this;
     }
