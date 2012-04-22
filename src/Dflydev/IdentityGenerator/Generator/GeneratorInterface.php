@@ -11,8 +11,6 @@
 
 namespace Dflydev\IdentityGenerator\Generator;
 
-use Dflydev\IdentityGenerator\DataStore\DataStoreInterface;
-
 interface GeneratorInterface
 {
     /**
