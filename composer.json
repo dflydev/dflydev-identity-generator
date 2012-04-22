@@ -1,0 +1,33 @@
+{
+    "name": "dflydev/identity-generator",
+    "type": "library",
+    "description": "Provide a standard interface for generating unique string-based identifiers.",
+    "homepage": "https://github.com/dflydev/dflydev-identity-generator",
+    "keywords": ["identity", "generator", "generation", "id"],
+    "license": "New BSD License",
+    "authors": [
+        {
+            "name": "Dragonfly Development Inc.",
+            "email": "info@dflydev.com",
+            "homepage": "http://dflydev.com"
+        },
+        {
+            "name": "Beau Simensen",
+            "email": "beau@dflydev.com",
+            "homepage": "http://beausimensen.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": {
+            "Dflydev\\IdentityGenerator": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

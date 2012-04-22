@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="tests/bootstrap.php">
+    <testsuites>
+        <testsuite name="Identity Generator Test Suite">
+            <directory>./tests/Dflydev/Tests/IdentityGenerator</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./src/Dflydev/IdentityGenerator/</directory>
+        </whitelist>
+    </filter>
+</phpunit>
