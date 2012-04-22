@@ -20,6 +20,12 @@
     "require": {
         "php": ">=5.3.2"
     },
+    "require-dev": {
+        "dflydev/base32-crockford": "1.*"
+    },
+    "suggest": {
+        "dflydev/base32-crockford": "Required for Base32 Crockford based Generator's"
+    },
     "autoload": {
         "psr-0": {
             "Dflydev\\IdentityGenerator": "src"
