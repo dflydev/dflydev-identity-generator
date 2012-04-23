@@ -18,7 +18,7 @@ sense to randomize identity such that it is not able to be guessed
 as it follows no predictable pattern.
 
 As such, most of the `GeneratorInterface` implementations provided
-this library will be somehwat random in nature. This does not
+by this library will be somewhat random in nature. This does not
 preclude the use of sequential `GeneratorInterface` implementations.
 
 
