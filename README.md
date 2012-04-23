@@ -47,6 +47,10 @@ This guarantee of uniqueness is only as strong as the given
 data store's ability to effectively determine uniqueness of a
 given value.
 
+A data store should throw `NonUniqueIdentityException` in the
+case that a given value is not unique. The requested identity
+and mob values are available via this exception.
+
 
 What About Collisions?
 ----------------------
@@ -55,12 +59,8 @@ The `IdentityGenerator` will make `maxRetries` attempts to
 store generated values into the data store. This should allow
 for handling a finite number of collisions gracefully.
 
-The data store will throw `NonUniqueIdentityException` in the
-case that a given value is not unique. The requested identity
-and mob values are available via this exception.
-
 Should `maxRetries` be exhausted, `GenerateException` is thrown.
-It will contain a list of `NonUniqueIdentityException` objects
+It will contain a list of `NonUniqueIdentityException` exceptions
 equal to the number of `maxRetries`.
 
 
