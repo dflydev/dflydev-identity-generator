@@ -2,7 +2,7 @@
 
 /*
  * This file is a part of dflydev/identity-generator.
- * 
+ *
  * (c) Dragonfly Development Inc.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -11,6 +11,11 @@
 
 namespace Dflydev\IdentityGenerator\Generator;
 
+/**
+ * Simple Arbitrary Base implementation of the Generator interfacoe.
+ *
+ * @author Beau Simensen <beau@dflydev.com>
+ */
 class ArbitraryBaseGenerator extends AbstractSeededGenerator
 {
     public static $BASE32_CROCKFORD = array(
@@ -23,13 +28,14 @@ class ArbitraryBaseGenerator extends AbstractSeededGenerator
 
     /**
      * Encode number using only values from symbols
-     * 
-     * @param array $symbols
-     * @param int $number
+     *
+     * @param array $symbols Symbols to choose from
+     * @param int   $number  Number to encode
+     *
      * @return string
      * @throws \RuntimeException
      */
-    static public function encode($symbols, $number)
+    public static function encode($symbols, $number)
     {
         if (!is_numeric($number)) {
             throw new \RuntimeException("Specified number '{$number}' is not numeric");
@@ -54,8 +60,8 @@ class ArbitraryBaseGenerator extends AbstractSeededGenerator
 
     /**
      * Constructor
-     * 
-     * @param GeneratorInterface|null $seedGenerator
+     *
+     * @param GeneratorInterface|null $seedGenerator Underlying seed generator
      */
     public function __construct(GeneratorInterface $seedGenerator = null)
     {
@@ -73,8 +79,9 @@ class ArbitraryBaseGenerator extends AbstractSeededGenerator
 
     /**
      * Set allowed chars
-     * 
+     *
      * @param array $allowedChars
+     *
      * @return ArbitraryBaseGenerator
      */
     public function setAllowedChars(array $allowedChars)

@@ -2,7 +2,7 @@
 
 /*
  * This file is a part of dflydev/identity-generator.
- * 
+ *
  * (c) Dragonfly Development Inc.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -11,6 +11,11 @@
 
 namespace Dflydev\IdentityGenerator\Generator;
 
+/**
+ * Random Number implemetnation of the Generator Interface
+ *
+ * @author Beau Simensen <beau@dflydev.com>
+ */
 class RandomNumberGenerator implements GeneratorInterface
 {
     protected $minValue;
@@ -18,9 +23,9 @@ class RandomNumberGenerator implements GeneratorInterface
 
     /**
      * Constructor
-     * 
-     * @param int $minValue
-     * @param int|null $maxValue Defaults to mt_getrandmax()
+     *
+     * @param int $minValue Minimum value
+     * @param int $maxValue Maximum value (defaults to mt_getrandmax())
      */
     public function __construct($minValue = 0, $maxValue = null)
     {

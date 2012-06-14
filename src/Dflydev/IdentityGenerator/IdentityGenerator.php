@@ -2,7 +2,7 @@
 
 /*
  * This file is a part of dflydev/identity-generator.
- * 
+ *
  * (c) Dragonfly Development Inc.
  *
  * For the full copyright and license information, please view the LICENSE
@@ -16,6 +16,11 @@ use Dflydev\IdentityGenerator\Exception\GenerateException;
 use Dflydev\IdentityGenerator\Exception\NonUniqueIdentityException;
 use Dflydev\IdentityGenerator\Generator\GeneratorInterface;
 
+/**
+ * Identity Generator
+ *
+ * @author Beau Simensen <beau@dflydev.com>
+ */
 class IdentityGenerator
 {
     protected $dataStore;
@@ -25,7 +30,7 @@ class IdentityGenerator
 
     /**
      * Constructor
-     * 
+     *
      * @param DataStoreInterface $dataStore
      * @param GeneratorInterface $generator
      */
@@ -37,9 +42,12 @@ class IdentityGenerator
 
     /**
      * Generate an identity string
-     * 
+     *
      * @param string|null $suggestion
+     *
      * @return string
+     *
+     * @throws \Dflydev\IdentityGenerator\Exception\Exception
      */
     public function generate($suggestion = null)
     {
@@ -71,8 +79,9 @@ class IdentityGenerator
 
     /**
      * Set mob
-     * 
+     *
      * @param string|null $mob
+     *
      * @return IdentityGenerator
      */
     public function setMob($mob = null)
@@ -84,8 +93,9 @@ class IdentityGenerator
 
     /**
      * Set max retries
-     * 
+     *
      * @param int $maxRetries
+     *
      * @return IdentityGenerator
      */
     public function setMaxRetries($maxRetries)

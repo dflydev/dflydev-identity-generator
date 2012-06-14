@@ -12,12 +12,13 @@
 namespace Dflydev\IdentityGenerator\Exception;
 
 /**
- * Non Unique Identity Exception is thrown  when a requested identifier
- * and mob combination are not unique.
+ * Data Store Exception is thrown when the underlying data store experiences
+ * an unexpected exception. This might be connectivity issues, syntax issues,
+ * etc.
  *
  * @author Beau Simensen <beau@dflydev.com>
  */
-class NonUniqueIdentityException extends Exception
+class DataStoreException extends Exception
 {
     protected $identity;
     protected $mob;
@@ -25,13 +26,14 @@ class NonUniqueIdentityException extends Exception
     /**
      * Constructor
      *
-     * @param string $identity Identifier
-     * @param string $mob      Group identifier
+     * @param \Exception $previous Previous exception
+     * @param string     $identity Identifier
+     * @param string     $mob      Group identifier
      */
-    public function __construct($identity, $mob = null)
+    public function __construct(\Exception $previous, $identity, $mob = null)
     {
         $mobString = $mob ? ' (with mob '.$mob.')' : '';
-        parent::__construct("Could not store generated identity as it is not unique: ".$identity.$mobString);
+        parent::__construct("Could not store generated identity for an unexpected reason: ".$identity.$mobString, $previous);
         $this->identity = $identity;
         $this->mob = $mob;
     }
