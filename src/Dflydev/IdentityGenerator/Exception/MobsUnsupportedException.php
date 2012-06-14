@@ -12,13 +12,12 @@
 namespace Dflydev\IdentityGenerator\Exception;
 
 /**
- * Data Store Exception is thrown when the underlying data store experiences
- * an unexpected exception. This might be connectivity issues, syntax issues,
- * etc.
+ * Mobs Unsupported Exception is thrown when the underlying data store does
+ * not support mobs or was not configured correctly to support them.
  *
  * @author Beau Simensen <beau@dflydev.com>
  */
-class DataStoreException extends Exception
+class MobsUnsupportedException extends Exception
 {
     protected $identity;
     protected $mob;
@@ -26,14 +25,15 @@ class DataStoreException extends Exception
     /**
      * Constructor
      *
-     * @param \Exception $previous Previous exception
-     * @param string     $identity Identifier
-     * @param string     $mob      Group identifier
+     * @param string $identity Identifier
+     * @param string $mob      Group identifier
+     * @param string $message  Message
      */
-    public function __construct(\Exception $previous, $identity, $mob = null)
+    public function __construct($identity, $mob, $message = null)
     {
         $mobString = $mob ? ' (with mob '.$mob.')' : '';
-        parent::__construct("Could not store generated identity for an unexpected reason: ".$identity.$mobString, 0, $previous);
+        $messageString = $message ? ' ' . $message : '';
+        parent::__construct('Mobs are unsupported under current configuration.'.$messageString.' '.$identity.$mobString);
         $this->identity = $identity;
         $this->mob = $mob;
     }
