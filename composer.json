@@ -1,7 +1,7 @@
 {
     "name": "dflydev/identity-generator",
     "type": "library",
-    "description": "Provide a standard interface for generating unique identifiers.",
+    "description": "Provides a standard interface for generating unique identifiers.",
     "homepage": "https://github.com/dflydev/dflydev-identity-generator",
     "keywords": ["identity", "generator", "generation", "id"],
     "license": "New BSD License",
