@@ -24,7 +24,7 @@
         "dflydev/base32-crockford": "1.*"
     },
     "suggest": {
-        "dflydev/base32-crockford": "Required for Base32 Crockford based Generator's"
+        "dflydev/base32-crockford": "Required for Base32 Crockford based Generators"
     },
     "autoload": {
         "psr-0": {
