@@ -29,7 +29,7 @@ class IdentityGeneratorTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('storeIdentity')
             ->with($this->equalTo($suggestion))
-            ->will($this->returnValue($suggestion));
+            ->will($this->returnValue($suggestion . ' // results from data store'));
 
         $identityGenerator = new IdentityGenerator($dataStore, $generator);
         if (null !== $mob) {

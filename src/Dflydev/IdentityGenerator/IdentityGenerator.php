@@ -52,7 +52,9 @@ class IdentityGenerator
     public function generate($suggestion = null)
     {
         if (null !== $suggestion) {
-            return $this->dataStore->storeIdentity($suggestion, $this->mob);
+            $this->dataStore->storeIdentity($suggestion, $this->mob);
+
+            return $suggestion;
         }
 
         $exceptions = array();
